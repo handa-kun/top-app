@@ -20,7 +20,7 @@ export interface HhData {
     _id: string;
 }
 
-export interface BlogData {
+export interface Blog {
     h1: string;
     metaTitle: string;
     metaDescription: string;
@@ -28,14 +28,14 @@ export interface BlogData {
     _id: string;
 }
 
-export interface SravnikusData {
+export interface Sravnikus {
     metaTitle: string;
     metaDescription: string;
     qas: any[];
     _id: string;
 }
 
-export interface LearningclubData {
+export interface Learningclub {
     metaTitle: string;
     metaDescription: string;
     qas: any[];
@@ -61,9 +61,10 @@ export interface TopPageModel {
     qas: any[];
     addresses: any[];
     categoryOn: string;
-    blog: BlogData;
-    sravnikus: SravnikusData;
-    learningclub: LearningclubData;
+    blog: Blog;
+    sravnikus: Sravnikus;
+    learningclub: Learningclub;
 }
+
 
 

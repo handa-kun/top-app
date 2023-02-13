@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { withLayout } from '../layout/Layout';
 import { Button, Htag, Ptag, Rating, Tag } from './../components';
 import axios from 'axios';
-import { MenuItem } from '../interfaces/menu.interfaces';
+import { MenuItem } from '../interfaces/menu.interface';
 
 
 function Home({ menu }: HomeProps): JSX.Element {
@@ -21,9 +21,6 @@ function Home({ menu }: HomeProps): JSX.Element {
       <Tag color='green' href='#'>Back</Tag>
       <Tag color='primary' href='#'>Back</Tag>
       <Rating rating={rating} isEditable setRating={setRating} />
-      <ul>
-        {menu.map(m => (<li key={m._id.secondCategory}>{m._id.secondCategory}</li>))}
-      </ul>
     </>
   );
 }

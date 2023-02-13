@@ -2,13 +2,13 @@ import { GetStaticPropsContext, GetStaticProps, GetStaticPaths } from 'next';
 import { withLayout } from '../../layout/Layout';
 import axios from 'axios';
 import { TopPageModel } from '../../interfaces/page.interface';
-import { MenuItem } from '../../interfaces/menu.interfaces';
+import { MenuItem } from '../../interfaces/menu.interface';
 import { ParsedUrlQuery } from 'querystring';
-import { ProductModel } from '../../interfaces/products.interfaces';
+import { ProductModel } from '../../interfaces/products.interface';
+
 const firstCategory = 0;
 
-
-function Cource({ menu, page, products }: CourceProps): JSX.Element {
+function Course({ menu, page, products }: CourseProps): JSX.Element {
 
     return (
         <>
@@ -17,7 +17,7 @@ function Cource({ menu, page, products }: CourceProps): JSX.Element {
     );
 }
 
-export default withLayout(Cource);
+export default withLayout(Course);
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/find', {
@@ -29,14 +29,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps<CourceProps> = async ({ params }: GetStaticPropsContext<ParsedUrlQuery>) => {
+export const getStaticProps: GetStaticProps<CourseProps> = async ({ params }: GetStaticPropsContext<ParsedUrlQuery>) => {
     if (!params) {
         return {
             notFound: true
         };
     }
-    const { data: page } = await axios.get<TopPageModel[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/byAlias/' + params.alias);
-    const { data: products } = await axios.post<ProductModel[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/products/find', {
+    const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/find', {
+        firstCategory
+    });
+
+    const { data: page } = await axios.get<TopPageModel>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/byAlias/' + params.alias);
+    const { data: products } = await axios.post<ProductModel[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/product/find', {
         category: page.category,
         limit: 10
     });
@@ -51,9 +55,9 @@ export const getStaticProps: GetStaticProps<CourceProps> = async ({ params }: Ge
     };
 };
 
-interface CourceProps extends Record<string, unknown> {
+interface CourseProps extends Record<string, unknown> {
     menu: MenuItem[];
     firstCategory: number;
-    page: TopPageModel[];
+    page: TopPageModel;
     products: ProductModel[];
 }
