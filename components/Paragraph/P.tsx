@@ -2,7 +2,7 @@ import cn from 'classnames';
 import styles from './P.module.css';
 import { PProps } from './P.props';
 
-export const Ptag = ({ size = 'm', children, className, ...props }: PProps): JSX.Element => {
+export const P = ({ size = 'm', children, className, ...props }: PProps): JSX.Element => {
     return (
         <p
             className={cn(styles.p, className, {
