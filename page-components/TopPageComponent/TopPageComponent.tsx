@@ -8,7 +8,6 @@ import { TopPageComponentProps } from './TopPageComponent.props';
 
 export const TopPageComponent = ({ page, firstCategory, products }: TopPageComponentProps): JSX.Element => {
     const [{ products: sortedProducts, sort }, dispatchSort] = useReducer(sortReducer, { products, sort: SortEnum.Rating });
-
     const setSort = (sort: SortEnum) => {
         dispatchSort({ type: sort });
     };
