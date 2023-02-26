@@ -7,6 +7,7 @@ import { Card } from '../Card/Card';
 import { Divider } from '../Divider/Divider';
 import { Rating } from '../Rating/Rating';
 import { Review } from '../Review/Review';
+import { ReviewForm } from '../ReviewForm/ReviewForm';
 import { Tag } from '../Tag/Tag';
 import styles from './Product.module.css';
 import { ProductProps } from './Product.props';
@@ -77,8 +78,12 @@ export const Product = ({ product, className, ...props }: ProductProps): JSX.Ele
                 [styles.closed]: !isOpened
             })}>
                 {product.reviews.map(r => (
-                    <Review key={r._id} review={r} />
+                    <div key={r._id}>
+                        <Review review={r} />
+                        <Divider />
+                    </div>
                 ))}
+                <ReviewForm product={product._id} />
             </Card>
         </>
     );
