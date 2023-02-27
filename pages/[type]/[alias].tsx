@@ -26,7 +26,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
             firstCategory: m.id
         });
-        paths = menu.flatMap(s => s.pages.map(p => `${m.route}/${p.alias}`));
+        paths = paths.concat(menu.flatMap(s => s.pages.map(p => `/${m.route}/${p.alias}`)));
     }
     return {
         paths,
