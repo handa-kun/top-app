@@ -29,6 +29,7 @@ export const Product = motion(forwardRef(({ product, className, ...props }: Prod
             behavior: 'smooth',
             block: 'start'
         });
+        reviewRef.current?.focus();
     };
 
     return (
@@ -44,17 +45,22 @@ export const Product = motion(forwardRef(({ product, className, ...props }: Prod
                 </div>
                 <div className={styles.title}>{product.title}</div>
                 <div className={styles.price}>
-                    {priceRu(product.price)}
-                    {product.oldPrice && <Tag className={styles.oldPrice} color='green'>{priceRu(product.price - product.oldPrice)}</Tag>}
+                    <span className='visualyHidden'>цена</span>{priceRu(product.price)}
+                    {product.oldPrice && <Tag className={styles.oldPrice} color='green'>
+                        <span className='visualyHidden'>скидка</span>
+                        {priceRu(product.price - product.oldPrice)}</Tag>}
                 </div>
                 <div className={styles.credit}>
-                    {priceRu(product.credit)}/
+                    <span className='visualyHidden'>кредит</span>{priceRu(product.credit)}/
                     <span className={styles.month}>мес</span>
                 </div>
-                <div className={styles.rating}><Rating rating={product.reviewAvg ?? product.initialRating} /></div>
+                <div className={styles.rating}>
+                    <span className='visualyHidden'>{'рейтинг' + (product.reviewAvg ?? product.initialRating)}</span>
+                    <Rating rating={product.reviewAvg ?? product.initialRating} />
+                </div>
                 <div className={styles.tags}>{product.categories.map(c => <Tag key={c} className={styles.category} color='ghost'>{c}</Tag>)}</div>
-                <div className={styles.priceTitle}>цена</div>
-                <div className={styles.creditTitle}>в кредит</div>
+                <div className={styles.priceTitle} aria-hidden={true}>цена</div>
+                <div className={styles.creditTitle} aria-hidden={true}>в кредит</div>
                 <div className={styles.rateTitle}><a href='#ref' onClick={scrollToReview}>{product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</a></div>
                 <Divider className={styles.hr} />
                 <div className={styles.description}>{product.description}</div>
@@ -85,18 +91,23 @@ export const Product = motion(forwardRef(({ product, className, ...props }: Prod
                         arrow={isOpened ? 'down' : 'right'}
                         className={styles.reviewButton}
                         onClick={() => setIsOpened(!isOpened)}
+                        aria-expanded={isOpened}
                     >Читать отзывов</Button>
                 </div>
             </Card>
-            <motion.div className={styles.reviews} ref={reviewRef} animate={isOpened ? 'visible' : 'hidden'} variants={variants} initial='hidden'>
-                <Card ref={reviewRef} color='blue'>
+            <motion.div
+                className={styles.reviews}
+                ref={reviewRef}
+                animate={isOpened ? 'visible' : 'hidden'}
+                variants={variants} initial='hidden'>
+                <Card ref={reviewRef} color='blue' tabIndex={isOpened ? 0 : -1}>
                     {product.reviews.map(r => (
                         <div key={r._id}>
                             <Review review={r} />
                             <Divider />
                         </div>
                     ))}
-                    <ReviewForm productId={product._id} />
+                    <ReviewForm productId={product._id} isOpened={isOpened} />
                 </Card>
             </motion.div>
         </div>

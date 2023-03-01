@@ -47,6 +47,7 @@ export const Rating = forwardRef(({ isEditable = false, error, rating, setRating
         if (e.code != 'Space' || !setRating) {
             return;
         }
+        e.preventDefault();
         setRating(i);
     };
 

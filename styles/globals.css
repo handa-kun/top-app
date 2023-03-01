@@ -18,17 +18,24 @@ a {
 	color: inherit;
 }
 
+.visualyHidden {
+	height: 0;
+	width: 0;
+	overflow: hidden;
+	position: absolute;
+}
+
 :root {
 	--black: #3B434E;
 	--gray-light: #EBEBEB;
 	--gray: #A4A4A4;
-	--gray-dark: #787D85;
+	--gray-dark: #6c7077;
 	--white: white;
-	--primary: #7653FC;
+	--primary: #7351f5;
 	--primary-hover: #6344df;
 	--red: #FC836D;
 	--red-light: #e48b7b;
-	--green: #1DC37E;
+	--green: #007b48;
 	--green-light: #C8F8E4;
 	--font-family: "Open Sans", sans-serif;
 }
