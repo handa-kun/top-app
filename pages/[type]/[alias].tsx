@@ -9,9 +9,14 @@ import { firstLevelMenu } from '../../helper/helper';
 import { TopPageComponent } from '../../page-components';
 import { API } from '../../helper/api';
 import Head from 'next/head';
+import { Error404 } from '../404';
 
 
 function TopPage({ firstCategory, page, products }: TopPageProps): JSX.Element {
+    if (!page || !products) {
+        return <Error404 />;
+    }
+
     return <>
         <Head>
             <title>{page.title}</title>
@@ -22,8 +27,8 @@ function TopPage({ firstCategory, page, products }: TopPageProps): JSX.Element {
         <TopPageComponent
             firstCategory={firstCategory}
             page={page}
-            products={products} />;
-    </>;
+            products={products}
+        /></>;
 }
 
 export default withLayout(TopPage);

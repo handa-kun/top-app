@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import { KeyboardEvent } from 'react';
 import styles from './Sort.module.css';
 import { SortEnum, SortProps } from './Sort.props';
 import SortIcon from './sort.svg';

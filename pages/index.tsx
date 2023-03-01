@@ -6,7 +6,7 @@ import { MenuItem } from '../interfaces/menu.interface';
 import { API } from '../helper/api';
 
 
-function Home({ ...props }: HomeProps): JSX.Element {
+function Home(): JSX.Element {
 
   return (
     <>

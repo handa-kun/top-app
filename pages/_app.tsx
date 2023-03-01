@@ -5,13 +5,13 @@ import ym from 'react-yandex-metrika';
 import { Router } from 'next/router';
 import { YMInitializer } from 'react-yandex-metrika';
 
-export default function App({ Component, pageProps, router }: AppProps) {
-  Router.events.on('routeChangeComplete', (url: string) => {
-    if (typeof window !== 'undefined') {
-      ym('hit', url);
-    }
-  });
+Router.events.on('routeChangeComplete', (url: string) => {
+  if (typeof window !== 'undefined') {
+    ym('hit', url);
+  }
+});
 
+export default function App({ Component, pageProps, router }: AppProps) {
   return <>
     <Head>
       <title>MyTop - the best top</title>
